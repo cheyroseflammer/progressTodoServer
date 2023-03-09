@@ -27,19 +27,18 @@ async function todoExists(req, res, next) {
   next({ status: 404, message: `Todo cannot be found` });
 }
 
-async function list(req, res) {
-  const data = await todosService.list();
-  res.json({ data });
-}
-
 function read(req, res) {
-  // console.log(req);
-  const user_email = req.params.userEmail;
+  // const user_email = req.params.userEmail;
   const { todo: data } = res.locals;
   res.json({ data });
 }
 
+async function create(req, res) {
+  const data = await todosService.create(req.body.data);
+  res.status(201).json({ data });
+}
+
 module.exports = {
-  list: asyncErrorBoundary(list),
   read: [asyncErrorBoundary(todoExists), asyncErrorBoundary(read)],
+  create: [hasOnlyValidProperties, hasRequiredProperties, asyncErrorBoundary(create)],
 };
