@@ -11,7 +11,16 @@ function create(todo) {
     .then((createdRecords) => createdRecords[0]);
 }
 
+function update(updatedTodo) {
+  return knex('todos')
+    .select('*')
+    .where({ todo_id: updatedTodo.todo_id })
+    .update(updatedTodo, '*')
+    .then((updatedRecords) => updatedRecords[0]);
+}
+
 module.exports = {
   read,
   create,
+  update,
 };

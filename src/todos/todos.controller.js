@@ -38,7 +38,22 @@ async function create(req, res) {
   res.status(201).json({ data });
 }
 
+async function update(req, res) {
+  const updatedTodo = {
+    ...req.body.data,
+    todo_id: res.locals.todo.todo_id,
+  };
+  const data = await todosService.update(updatedTodo);
+  res.json({ data });
+}
+
 module.exports = {
   read: [asyncErrorBoundary(todoExists), asyncErrorBoundary(read)],
   create: [hasOnlyValidProperties, hasRequiredProperties, asyncErrorBoundary(create)],
+  update: [
+    asyncErrorBoundary(todoExists),
+    hasOnlyValidProperties,
+    hasRequiredProperties,
+    asyncErrorBoundary(update),
+  ],
 };
