@@ -28,7 +28,6 @@ async function todoExists(req, res, next) {
 }
 
 function read(req, res) {
-  // const user_email = req.params.userEmail;
   const { todo: data } = res.locals;
   res.json({ data });
 }
@@ -41,19 +40,24 @@ async function create(req, res) {
 async function update(req, res) {
   const updatedTodo = {
     ...req.body.data,
-    todo_id: res.locals.todo.todo_id,
+    todo_id: req.params.todoId,
   };
   const data = await todosService.update(updatedTodo);
   res.json({ data });
 }
 
+async function destroy(req, res) {
+  const deletedTodo = {
+    ...req.body.data,
+    todo_id: req.params.todoId,
+  };
+  await todosService.delete(deletedTodo);
+  res.sendStatus(204);
+}
+
 module.exports = {
   read: [asyncErrorBoundary(todoExists), asyncErrorBoundary(read)],
   create: [hasOnlyValidProperties, hasRequiredProperties, asyncErrorBoundary(create)],
-  update: [
-    asyncErrorBoundary(todoExists),
-    hasOnlyValidProperties,
-    hasRequiredProperties,
-    asyncErrorBoundary(update),
-  ],
+  update: [hasOnlyValidProperties, hasRequiredProperties, asyncErrorBoundary(update)],
+  delete: [asyncErrorBoundary(todoExists), asyncErrorBoundary(destroy)],
 };
