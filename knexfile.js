@@ -1,6 +1,7 @@
 const path = require('path');
 require('dotenv').config();
 const { DATABASE_URL, TEST_DATABASE_URL } = process.env;
+
 module.exports = {
   development: {
     client: 'postgresql',
