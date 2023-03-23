@@ -15,6 +15,10 @@ app.use('/signup', signupRouter);
 
 app.use('/login', loginRouter);
 
+app.get('/hello', (req, res) => {
+  res.send('Hello');
+});
+
 app.use((req, res, next) => {
   next({ status: 404, message: `Not found: ${req.originalUrl}` });
 });
