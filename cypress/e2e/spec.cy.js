@@ -1,15 +1,3 @@
-// describe('TODO api testing', () => {
-//   let todoItem;
-//   let useremail = 'api-demo@test.com';
-//   it('fetches Todo items - GET', () => {
-//     cy.request(`/todos/${useremail}`).as('todoRequest');
-//     cy.get('@todoRequest').then((todos) => {
-//       expect(todos.status).to.eq(200);
-//       assert.isObject(todos.body, 'Todos Response is an object');
-//     });
-//   });
-// });
-
 describe('TODO api testing', () => {
   let todoItem;
   let useremail = 'api-demo@test.com';
