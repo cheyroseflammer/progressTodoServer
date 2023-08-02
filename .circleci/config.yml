@@ -1,24 +1,22 @@
 version: 2.1
+
 orbs:
-  cypress: cypress-io/cypress@3
-jobs:
-  install:
-    executor: cypress/default
-    steps:
-      - cypress/install:
-          install-browsers: true
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - .cache/Cypress
-            - project
-  run-tests:
-    executor: cypress/default
-    parallelism: 10
-    steps:
-      - run: echo "This step assumes dependencies were installed using the cypress/install job"
-      - attach_workspace:
-          at: ~/
-      - cypress/run-tests:
-          cypress-command: 'npx cypress run --parallel --record'
-          start-command: 'npm run start'
+  cypress: cypress-io/cypress@1.29.0
+  slack: circleci/slack@4.10.1
+
+executors:
+  with-chrome:
+    docker:
+      - image: 'cypress/browsers:node14.16.0-chrome90-ff88'
+workflows:
+  version: 2
+  test:
+    jobs:
+      - cypress/run:
+          executor: with-chrome
+          browser: chrome
+          context: slack-context
+          post-steps:
+            - slack/notify:
+                event: fail
+                template: basic_fail_1
