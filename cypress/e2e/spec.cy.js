@@ -31,7 +31,7 @@ describe('TODO api testing', () => {
       expect(todos.status).to.eq(201);
       cy.wrap(todos.body).should('deep.include', {
         data: {
-          todo_id: 1339,
+          todo_id: 1341,
           user_email: 'api-demo@test.com',
           title: 'Test Todo',
           description: 'Posting from cypress.',

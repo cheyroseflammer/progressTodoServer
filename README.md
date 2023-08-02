@@ -16,7 +16,7 @@ Run Migration Files: `npx knex migrate:latest`
 
 Seed Database: `npx knex seed: run`
 
-Tests: `npm test` (all tests should pass)
+Tests: `npm test`
 
 Start server: `npm start`
 
@@ -24,9 +24,21 @@ Start nodemon for development: `npm run dev`
 
 ### Testing
 
-Testing done with Jest and Supertest
+Testing done with Cypress on production API endpoint.
 
-<!-- ![test-screenshot](images/testPng.png) -->
+Cypress was used to test the todos route and its GET, DELETE, AND POST methods.
+
+![cypress](assets/cypress.png)
+
+### CD/CD
+
+Continuous Integration and Delivery was achieved using CircleCi
+
+![cicd](assets/cicd.png)
+
+Tests being run with CI/CD
+
+![circleci-cicd](assets/CircleCICypress.png)
 
 ### API Endpoint Overview
 
